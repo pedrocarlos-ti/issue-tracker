@@ -5,10 +5,10 @@ services:
     image: mysql:8.0
     container_name: issue-tracker-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: root_123321
       MYSQL_DATABASE: issue_tracker
       MYSQL_USER: admin
-      MYSQL_PASSWORD: 123321
+      MYSQL_PASSWORD: admin_123321
     ports:
       - "3306:3306"
     volumes:
