@@ -1,9 +1,14 @@
 import { Button } from "@radix-ui/themes";
+import Link from "next/link";
+import { BsArrowRight } from "react-icons/bs";
 
 const IssuesPage = () => {
   return (
-    <div className="p-5">
-      <Button>IssuesPage</Button>
+    <div>
+      <Button>
+        <Link href="/issues/new">New Issue</Link>
+        <BsArrowRight />
+      </Button>
     </div>
   );
 };
