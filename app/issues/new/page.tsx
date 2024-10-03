@@ -19,6 +19,7 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const {
     register,
@@ -33,6 +34,7 @@ const NewIssuePage = () => {
 
   const onSubmit = async (data: IssueForm) => {
     try {
+      setIsSubmitting(true);
       const response = await fetch("/api/issues", {
         method: "POST",
         body: JSON.stringify(data),
@@ -42,7 +44,8 @@ const NewIssuePage = () => {
         setError("An error occurred while creating the issue.");
         return;
       }
-
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setIsSubmitting(false);
       router.push("/issues");
     } catch (error) {
       console.error(error);
@@ -71,7 +74,7 @@ const NewIssuePage = () => {
           )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
-        <Button>Submit</Button>
+        <Button loading={isSubmitting}>Submit</Button>
       </form>
     </div>
   );
