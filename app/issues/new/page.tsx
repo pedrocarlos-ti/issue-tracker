@@ -1,8 +1,9 @@
 "use client";
 
+import ErrorMessage from "@/app/components/ErrorMessage";
 import { createIssueSchema } from "@/app/utils/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Callout, Skeleton, Text, TextField } from "@radix-ui/themes";
+import { Button, Callout, Skeleton, TextField } from "@radix-ui/themes";
 import "easymde/dist/easymde.min.css";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
@@ -61,7 +62,7 @@ const NewIssuePage = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <TextField.Root placeholder="Title" {...register("title")} />
-        {errors.title && <Text color="red">{errors.title.message}</Text>}
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
           name="description"
           control={control}
@@ -69,9 +70,7 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field} ref={ref} />
           )}
         />
-        {errors.description && (
-          <Text color="red">{errors.description.message}</Text>
-        )}
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button>Submit</Button>
       </form>
     </div>
